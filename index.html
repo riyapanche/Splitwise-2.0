@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Splitwise</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/5.0.4/tesseract.min.js"></script>
+    </head>
+    <body>
+        <h1>Splitwise</h1>
+        <input type="file" id="upload" accept="image/*">
+        <img id="preview" style="display: none; max-width: 400px;">
+        <button id="scan-btn">Scan Receipt</button>
+        <p id="status"></p>
+        <pre id="output"></pre>
+
+        <script>
+            const upload = document.getElementById('upload');
+            const preview = document.getElementById('preview');
+            const scanBtn = document.getElementById('scan-btn');
+            const status = document.getElementById('status');
+            const output = document.getElementById('output');
+
+            scanBtn.addEventListener('click', function() {
+                if (preview.style.display === 'block') {
+                    status.textContent = 'Scanning...';
+                    Tesseract.recognize(
+                        preview.src,
+                        'eng',
+                        { logger: m => console.log(m) }
+                    ).then(({ data: { text } }) => {
+                        status.textContent = 'Scan complete!';
+                        output.textContent = text;
+                        console.log(text);
+                    }).catch(err => {
+                        status.textContent = 'Error scanning receipt.';
+                        console.error(err);
+                    });
+                } else {
+                    alert('Please upload a receipt image first.');
+                }
+            });
+
+            upload.addEventListener('change', function() {
+                const file = upload.files[0];
+                const url = URL.createObjectURL(file);
+                preview.src = url;
+                preview.style.display = 'block';
+            });
+        </script>
+    </body>
+</html>
