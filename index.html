@@ -11,6 +11,7 @@
         <button id="scan-btn">Scan Receipt</button>
         <p id="status"></p>
         <pre id="output"></pre>
+        <ul id="items-list"></ul>
 
         <script>
             const upload = document.getElementById('upload');
@@ -18,6 +19,24 @@
             const scanBtn = document.getElementById('scan-btn');
             const status = document.getElementById('status');
             const output = document.getElementById('output');
+            const itemsList = document.getElementById('items-list');
+
+            function parseReceipt(text) {
+                const lines = text.split('\n');
+                const items = [];
+                
+                for (const line of lines) {
+                    if (line.toLowerCase().includes('total') || line.toLowerCase().includes('sub') || line.toLowerCase().includes('tax')) {
+                        continue;
+                    }
+                    const priceMatch = line.match(/(\d+\.\d{2})/);
+                    if (priceMatch) {
+                        items.push(line.trim());
+                    }
+                }
+
+                return items;
+            }
 
             scanBtn.addEventListener('click', function() {
                 if (preview.style.display === 'block') {
@@ -30,6 +49,15 @@
                         status.textContent = 'Scan complete!';
                         output.textContent = text;
                         console.log(text);
+                        const items = parseReceipt(text);
+                        console.log(items);
+
+                        itemsList.innerHTML = '';
+                        for (const item of items) {
+                            const li = document.createElement('li');
+                            li.textContent = item;
+                            itemsList.appendChild(li);
+                        }
                     }).catch(err => {
                         status.textContent = 'Error scanning receipt.';
                         console.error(err);
