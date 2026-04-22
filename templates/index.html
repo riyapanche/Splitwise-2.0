@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Splitwise</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/5.0.4/tesseract.min.js"></script>
+    </head>
+    <body>
+        <h1>Splitwise</h1>
+        <input type="file" id="upload" accept="image/*">
+        <img id="preview" style="display: none; max-width: 400px;">
+        <button id="scan-btn">Scan Receipt</button>
+        <p id="status"></p>
+        <pre id="output"></pre>
+        <ul id="items-list"></ul>
+
+        <script src="/static/app.js"></script>
+    </body>
+</html>
