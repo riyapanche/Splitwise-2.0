@@ -1,4 +1,6 @@
+import os
 import re
+import platform
 
 from flask import Flask, request, jsonify, render_template
 import pytesseract
@@ -7,7 +9,11 @@ import io
 
 app = Flask(__name__)
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Users\riyam\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
+# Only set an explicit path on Windows (local dev). On Render's Linux
+# container, Tesseract is installed via the Dockerfile and already on PATH,
+# so pytesseract finds it automatically without this.
+if platform.system() == 'Windows':
+    pytesseract.pytesseract.tesseract_cmd = r'C:\Users\riyam\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
 
 
 @app.route('/')
@@ -58,4 +64,5 @@ def parse_receipt(text):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', debug=True, port=port)
