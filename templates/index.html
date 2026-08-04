@@ -1,61 +1,84 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <title>Splitwise</title>
         <link rel="stylesheet" href="/static/style.css">
     </head>
     <body>
-    <!-- Screen 1: Upload -->
-    <div id="screen-upload" class="screen">
-        <h1>Splitwise 2.0</h1>
-        <input type="file" id="upload" accept="image/*">
-        <button type="button" id="upload-btn">+ Tap to upload photo</button>
-        <button type="button" id="add-item-btn">Add item</button>
-    </div>
+        <div class="app-shell">
+            <!-- Screen 1: Upload -->
+            <div id="screen-upload" class="screen">
+                <div class="screen-topbar">
+                    <button type="button" class="nav-back" aria-label="Back">‹</button>
+                    <h2 class="screen-title">Upload</h2>
+                </div>
+                <h1>Splitwise 2.0</h1>
+                <input type="file" id="upload" accept="image/*">
+                <button type="button" id="upload-btn">+ Tap to upload photo</button>
+                <button type="button" id="add-item-btn">Add item</button>
+            </div>
 
-    <!-- Screen 2: Scan -->
-    <div id="screen-scan" class="screen hidden">
-        <img id="preview" style="max-width: 100%;">
-        <button id="scan-btn" class="btn-primary">Scan Receipt</button>
-        <p id="status"></p>
-    </div>
+            <!-- Screen 2: Scan -->
+            <div id="screen-scan" class="screen hidden">
+                <div class="screen-topbar">
+                    <button type="button" class="nav-back" aria-label="Back">‹</button>
+                    <h2 class="screen-title">Scan</h2>
+                </div>
+                <img id="preview" style="max-width: 100%;">
+                <button id="scan-btn" class="btn-primary">Scan Receipt</button>
+                <p id="status"></p>
+            </div>
 
-    <!-- Screen 3: Items -->
-    <div id="screen-items" class="screen hidden">
-        <img id="preview-thumb">
-        <button id="rescan-btn" class="btn-ghost">Rescan</button>
-        <ul id="items-list"></ul>
+            <!-- Screen 3: Items -->
+            <div id="screen-items" class="screen hidden">
+                <div class="screen-topbar">
+                    <button type="button" class="nav-back" aria-label="Back">‹</button>
+                    <h2 class="screen-title">Items</h2>
+                </div>
+                <img id="preview-thumb">
+                <button id="rescan-btn" class="btn-ghost">Rescan</button>
+                <ul id="items-list"></ul>
 
-        <div id="manual-add-row">
-            <input type="text" id="manual-item-name" placeholder="Item name">
-            <input type="number" id="manual-item-price" placeholder="Price" step="0.01">
-            <button type="button" id="manual-add-btn">+</button>
+                <div id="manual-add-row">
+                    <input type="text" id="manual-item-name" placeholder="Item name">
+                    <input type="number" id="manual-item-price" placeholder="Price" step="0.01">
+                    <button type="button" id="manual-add-btn">+</button>
+                </div>
+
+                <button id="assign-btn" class="btn-primary mt-auto">Assign</button>
+            </div>
+
+            <!-- Screen 4: Assign -->
+            <div id="screen-assign" class="screen hidden">
+                <div class="screen-topbar">
+                    <button type="button" class="nav-back" aria-label="Back">‹</button>
+                    <h2 class="screen-title">Assign</h2>
+                </div>
+                <div class="search-row">
+                    <input type="text" id="search-people" placeholder="Add person">
+                    <button id="add-person-btn">+</button>
+                </div>
+                <p id="assign-instructions" class="helper-text">Tap a person, then tap an item to assign it.</p>
+                <ul id="people-list"></ul>
+                <ul id="assign-items-list"></ul>
+                <button id="done-btn" class="btn-primary mt-auto">Done</button>
+            </div>
+
+            <!-- Screen 5: Summary -->
+            <div id="screen-summary" class="screen hidden">
+                <div class="screen-topbar">
+                    <button type="button" class="nav-back" aria-label="Back">‹</button>
+                    <h2 class="screen-title">Summary</h2>
+                </div>
+                <button id="edit-btn" class="btn-ghost">Edit</button>
+                <p id="summary-hint" class="helper-text"></p>
+                <ul id="summary-list"></ul>
+                <button id="confirm-btn" class="btn-primary mt-auto">Confirm</button>
+            </div>
         </div>
 
-        <button id="assign-btn" class="btn-primary mt-auto">Assign</button>
-    </div>
-
-    <!-- Screen 4: Assign -->
-    <div id="screen-assign" class="screen hidden">
-        <h2>Assign</h2>
-        <div class="search-row">
-            <input type="text" id="search-people" placeholder="Add person">
-            <button id="add-person-btn">+</button>
-        </div>
-        <p id="assign-instructions" class="helper-text">Tap a person, then tap an item to assign it.</p>
-        <ul id="people-list"></ul>
-        <ul id="assign-items-list"></ul>
-        <button id="done-btn" class="btn-primary mt-auto">Done</button>
-    </div>
-
-    <!-- Screen 5: Summary -->
-    <div id="screen-summary" class="screen hidden">
-        <button id="edit-btn" class="btn-ghost">Edit</button>
-        <p id="summary-hint" class="helper-text"></p>
-        <ul id="summary-list"></ul>
-        <button id="confirm-btn" class="btn-primary mt-auto">Confirm</button>
-    </div>
-
-    <script src="/static/app.js"></script>
-</body>
+        <script src="/static/app.js"></script>
+    </body>
 </html>
