@@ -1,0 +1,5 @@
+Flask>=3.0,<4.0
+Pillow>=10.0,<11.0
+pytesseract>=0.10,<0.11
+
+# Note: Tesseract OCR itself must also be installed on your system for OCR processing.
