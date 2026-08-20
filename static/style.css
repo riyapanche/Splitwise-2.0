@@ -33,6 +33,78 @@ body {
     padding: calc(20px + env(safe-area-inset-top)) 18px calc(24px + env(safe-area-inset-bottom));
 }
 
+.button-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.button-row.compact {
+    margin-top: 4px;
+}
+
+.button-row > * {
+    flex: 1 1 0;
+}
+
+.stack-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card,
+.list-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+}
+
+.chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chip {
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: #ecebff;
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.chip.selected {
+    background: var(--accent);
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(88, 86, 214, 0.22);
+}
+
+.form-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.field-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+input {
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 13px 14px;
+    background: var(--surface);
+    color: var(--text);
+}
+
 .app-shell {
     position: relative;
     width: 100%;

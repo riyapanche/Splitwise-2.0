@@ -8,22 +8,94 @@
     </head>
     <body>
         <div class="app-shell">
-            <!-- Screen 1: Upload -->
-            <div id="screen-upload" class="screen">
+            <div id="screen-dashboard" class="screen">
                 <div class="screen-topbar">
-                    <button type="button" class="nav-back" aria-label="Back">‹</button>
+                    <h2 class="screen-title">Groups</h2>
+                </div>
+                <h1>Your groups</h1>
+                <p class="helper-text">Pick a group to see its transactions and add new ones.</p>
+                <div id="dashboard-groups-list" class="stack-list"></div>
+            </div>
+
+            <div id="screen-group" class="screen hidden">
+                <div class="screen-topbar">
+                    <button type="button" class="nav-back" data-screen="screen-dashboard" aria-label="Back">‹</button>
+                    <h2 class="screen-title">Group</h2>
+                </div>
+                <h1 id="group-title">Group</h1>
+                <div id="group-members" class="chip-row"></div>
+                <div class="button-row">
+                    <button id="group-add-transaction-btn" class="btn-primary">Add Transaction</button>
+                    <button id="group-settle-up-btn" class="btn-secondary">Settle Up</button>
+                </div>
+                <div class="button-row compact">
+                    <button id="group-edit-btn" class="btn-ghost">Edit</button>
+                    <button id="group-settings-btn" class="btn-ghost">Settings</button>
+                </div>
+                <div id="group-status" class="helper-text"></div>
+                <div id="transactions-list" class="stack-list"></div>
+            </div>
+
+            <div id="screen-transaction-detail" class="screen hidden">
+                <div class="screen-topbar">
+                    <button type="button" class="nav-back" data-screen="screen-group" aria-label="Back">‹</button>
+                    <h2 class="screen-title">Transaction</h2>
+                </div>
+                <div id="transaction-detail-card" class="card"></div>
+            </div>
+
+            <div id="screen-add-transaction-choice" class="screen hidden">
+                <div class="screen-topbar">
+                    <button type="button" class="nav-back" data-screen="screen-group" aria-label="Back">‹</button>
+                    <h2 class="screen-title">New transaction</h2>
+                </div>
+                <h1>Add a transaction</h1>
+                <button id="add-manual-btn" class="btn-primary">Add Manually</button>
+                <button id="add-scan-btn" class="btn-secondary">Scan Receipt</button>
+            </div>
+
+            <div id="screen-manual-entry" class="screen hidden">
+                <div class="screen-topbar">
+                    <button type="button" class="nav-back" data-screen="screen-add-transaction-choice" aria-label="Back">‹</button>
+                    <h2 class="screen-title">Manual entry</h2>
+                </div>
+                <div class="form-stack">
+                    <label class="field-label" for="manual-title">Title</label>
+                    <input id="manual-title" type="text" placeholder="Dinner, groceries...">
+                    <label class="field-label" for="manual-description">Description</label>
+                    <input id="manual-description" type="text" placeholder="Optional note">
+                    <label class="field-label" for="manual-amount">Amount</label>
+                    <input id="manual-amount" type="number" step="0.01" placeholder="0.00">
+                    <label class="field-label">Assign to</label>
+                    <div id="manual-assignees-list" class="chip-row"></div>
+                </div>
+                <div id="manual-status" class="helper-text"></div>
+                <button id="manual-submit-btn" class="btn-primary mt-auto">Create transaction</button>
+            </div>
+
+            <div id="screen-placeholder" class="screen hidden">
+                <div class="screen-topbar">
+                    <button type="button" class="nav-back" data-screen="screen-group" aria-label="Back">‹</button>
+                    <h2 class="screen-title">Placeholder</h2>
+                </div>
+                <h1 id="placeholder-title">Coming soon</h1>
+                <p id="placeholder-message" class="helper-text">This part of the UI is still being built.</p>
+            </div>
+
+            <div id="screen-upload" class="screen hidden">
+                <div class="screen-topbar">
+                    <button type="button" class="nav-back" data-screen="screen-group" aria-label="Back">‹</button>
                     <h2 class="screen-title">Upload</h2>
                 </div>
-                <h1>Splitwise 2.0</h1>
+                <h1>Scan a receipt</h1>
                 <input type="file" id="upload" accept="image/*">
                 <button type="button" id="upload-btn">+ Tap to upload photo</button>
                 <button type="button" id="add-item-btn">Add item</button>
             </div>
 
-            <!-- Screen 2: Scan -->
             <div id="screen-scan" class="screen hidden">
                 <div class="screen-topbar">
-                    <button type="button" class="nav-back" aria-label="Back">‹</button>
+                    <button type="button" class="nav-back" data-screen="screen-upload" aria-label="Back">‹</button>
                     <h2 class="screen-title">Scan</h2>
                 </div>
                 <img id="preview" style="max-width: 100%;">
@@ -31,10 +103,9 @@
                 <p id="status"></p>
             </div>
 
-            <!-- Screen 3: Items -->
             <div id="screen-items" class="screen hidden">
                 <div class="screen-topbar">
-                    <button type="button" class="nav-back" aria-label="Back">‹</button>
+                    <button type="button" class="nav-back" data-screen="screen-scan" aria-label="Back">‹</button>
                     <h2 class="screen-title">Items</h2>
                 </div>
                 <img id="preview-thumb">
@@ -50,26 +121,24 @@
                 <button id="assign-btn" class="btn-primary mt-auto">Assign</button>
             </div>
 
-            <!-- Screen 4: Assign -->
             <div id="screen-assign" class="screen hidden">
                 <div class="screen-topbar">
-                    <button type="button" class="nav-back" aria-label="Back">‹</button>
+                    <button type="button" class="nav-back" data-screen="screen-items" aria-label="Back">‹</button>
                     <h2 class="screen-title">Assign</h2>
                 </div>
                 <div class="search-row">
                     <input type="text" id="search-people" placeholder="Add person">
                     <button id="add-person-btn">+</button>
                 </div>
-                <p id="assign-instructions" class="helper-text">Tap a person, then tap an item to assign it.</p>
+                <p id="assign-instructions" class="helper-text">Tap the people who shared each item.</p>
                 <ul id="people-list"></ul>
                 <ul id="assign-items-list"></ul>
                 <button id="done-btn" class="btn-primary mt-auto">Done</button>
             </div>
 
-            <!-- Screen 5: Summary -->
             <div id="screen-summary" class="screen hidden">
                 <div class="screen-topbar">
-                    <button type="button" class="nav-back" aria-label="Back">‹</button>
+                    <button type="button" class="nav-back" data-screen="screen-assign" aria-label="Back">‹</button>
                     <h2 class="screen-title">Summary</h2>
                 </div>
                 <button id="edit-btn" class="btn-ghost">Edit</button>
